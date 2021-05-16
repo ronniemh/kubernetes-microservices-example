@@ -1,0 +1,13 @@
+{
+  "name": "coordinates",
+  "version": "1.0.0",
+  "description": "kubernates example ksk",
+  "main": "get.js",
+  "scripts": {
+    "start": "node get.js"
+  },
+  "author": "Lenin Gomez",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
