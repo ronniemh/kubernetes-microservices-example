@@ -1,0 +1,22 @@
+version: "2"
+
+services:
+  getCoordinates:
+    image: leningotru/coordinates
+    ports:
+    - "8080:3000"
+  encrypter:
+    image: ronniemh/location-encrypt
+    ports:
+    - "8081:8080"
+
+  # web:
+  #   build: web
+  #   ports:
+  #   - "8000:80"
+
+  redis:
+    image: redis
+
+  # worker:
+  #   build: worker
