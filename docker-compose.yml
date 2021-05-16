@@ -1,0 +1,18 @@
+version: "2"
+
+services:
+  encrypter:
+    build: locationEncrypt
+    ports:
+    - "8080:8080"
+
+  web:
+    build: web
+    ports:
+    - "8000:80"
+
+  redis:
+    image: redis
+
+  worker:
+    build: worker
