@@ -1,22 +1,20 @@
 version: "2"
 
 services:
-  getCoordinates:
+  coordinates:
     image: leningotru/coordinates
-    ports:
-    - "8080:3000"
   encrypter:
     image: ronniemh/location-encrypt
+  web:
+    image: danidaniel6462/ksh_webui
     ports:
-    - "8081:8080"
-
-  # web:
-  #   build: web
-  #   ports:
-  #   - "8000:80"
+    - "8000:80"
+  worker:
+    image: danidaniel6462/ksh_worker
+    depends_on:
+      - coordinates
+      - encrypter
+      - redis
 
   redis:
     image: redis
-
-  # worker:
-  #   build: worker

@@ -1,0 +1,16 @@
+{
+  "name": "webui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webui.js",
+  "scripts": {
+    "start": "node webui.js"
+  },
+  "keywords": [],
+  "author": "Danii Daniel",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "redis": "^3.1.2"
+  }
+}

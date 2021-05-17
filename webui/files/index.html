@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Docker speed</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.2.1/dist/chart.min.js"></script>
+
+    <style>
+      #graph {
+        background-color: #eee;
+        width: 800px;
+        height: 400px;
+      }
+    </style>
+  </head>
+  <body id="graph">
+    <canvas id="myChart" width="400" height="400"></canvas>
+    <span id="speed">-</span>
+    <script>
+      let dataPoints = [];
+      let points = [];
+      let count = 0;
+
+      const ctx = document.getElementById("myChart").getContext("2d");
+      const myChart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: [],
+          datasets: [
+            {
+              label: "Data One",
+              borderColor: "#FC2525",
+              pointBackgroundColor: "white",
+              borderWidth: 1,
+              pointBorderColor: "white",
+              backgroundColor: this.gradient,
+              data: [],
+              tension: 0.4,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+        },
+      });
+
+      setInterval(() => {
+        addData();
+      }, 1000);
+
+      function addData() {
+        fetch("/json")
+          .then((response) => response.json())
+          .then((data) => {
+            const dataChart = myChart.data;
+            if (dataChart.datasets.length > 0) {
+              const newLabels = dataChart.labels;
+
+              const response = {
+                num_coordinates: data.num_coordinates,
+                coordinates: data.coordinates,
+                now: data.now,
+              };
+              dataPoints.push(response);
+
+              let speed = 0;
+              for (let i = 0; i < dataPoints.length - 1; i++) {
+                // Compute instantaneous speed
+                const s1 = dataPoints[i];
+                const s2 = dataPoints[i + 1];
+                speed = (s2.coordinates - s1.coordinates) / (s2.now - s1.now);
+              }
+              newLabels.push(count++);
+              dataChart.labels = newLabels;
+              dataChart.datasets.forEach((dataset) => {
+                dataset.data.push(Number(speed).toFixed(0));
+              });
+              document.getElementById("speed").innerHTML =
+                "~" + speed.toFixed(1) + " coordinates/second";
+              myChart.update();
+            }
+          });
+      }
+    </script>
+  </body>
+</html>
