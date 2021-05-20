@@ -14,6 +14,24 @@ Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
 docker-compose up
 ```
 
+### Minikube 
+
+```bash
+kubectl create deployment redis --image=redis
+kubectl get all
+kubectl create deployment coordinates --image=leningotru/coordinates
+kubectl create deployment encrypter --image=ronniemh/location-encrypt
+kubectl create deployment web --image=danidaniel6462/ksh_webui
+kubectl create deployment worker --image=danidaniel6462/ksh_worker
+kubectl expose deployment redis --port 6379
+kubectl expose deployment coordinates --port 3000
+kubectl expose deployment encrypter --port 8080
+kubectl expose deploy/web --type=NodePort --port 80
+minikube service web
+```
+
+
+
 ### Usage
 
 Open a Web UI: http://localhost:3000
