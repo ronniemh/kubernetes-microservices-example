@@ -1,0 +1,119 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-get-coordinates
+  labels:
+    app: get-coordinates
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: get-coordinates
+  template:
+    metadata:
+      labels:
+        app: get-coordinates
+    spec:
+      containers:
+      - name: get-coordinates
+
+        image: leningotru/coordinates
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-location-encrypt
+  labels:
+    app: location-encrypt
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: location-encrypt
+  template:
+    metadata:
+      labels:
+        app: location-encrypt
+    spec:
+      containers:
+      - name: location-encrypt
+        image: ronniemh/location-encrypt
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-worker
+  labels:
+    app: worker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: worker
+  template:
+    metadata:
+      labels:
+        app: worker
+    spec:
+      containers:
+      - name: worker
+        image: danidaniel6462/ksh_worker
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: db
+  labels:
+    app: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+      - name: db
+        image: redis
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  labels:
+    app: db
+spec:
+  selector:
+    app: db
+  ports:
+    - protocol: TCP
+      port: 6379
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: coordinates
+  labels:
+    app: get-coordinates
+spec:
+  selector:
+    app: get-coordinates
+  ports:
+    - protocol: TCP
+      port: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: encrypter
+  labels:
+    app: location-encrypt
+spec:
+  selector:
+    app: location-encrypt
+  ports:
+    - protocol: TCP
+      port: 8080
