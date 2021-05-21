@@ -29,8 +29,20 @@ kubectl expose deployment encrypter --port 8080
 kubectl expose deploy/web --type=NodePort --port 80
 minikube service web
 ```
+### EKS
 
-
+```bash
+eksctl create cluster \
+ --name meet \
+ --version auto \
+ --nodegroup-name linux-nodes \
+ --zones us-east-1a,us-east-1b \
+ --node-type t3.small \
+ --nodes 1 \
+ --nodes-min 1 \
+ --nodes-max 3 \
+ --asg-access
+```
 
 ### Usage
 
