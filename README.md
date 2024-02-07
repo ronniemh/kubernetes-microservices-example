@@ -3,6 +3,10 @@
 Simple location encryption with WebUI for learning K8s.
 See video [here](https://www.youtube.com/watch?v=4es6iAljEwE)
 
+## YouTube video
+
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/4es6iAljEwE/0.jpg)](https://www.youtube.com/watch?v=4es6iAljEwE)
+
 ### Prerequisites
 
 [Docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/install/)
