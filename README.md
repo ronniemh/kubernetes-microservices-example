@@ -1,6 +1,7 @@
 # Kubernetes Example
 
 Simple location encryption with WebUI for learning K8s.
+See video [here](https://www.youtube.com/watch?v=4es6iAljEwE)
 
 ### Prerequisites
 
